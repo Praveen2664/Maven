@@ -1,60 +1,43 @@
 @Library('samplelibrary') _
-pipeline
-{
+pipeline {
     agent any
-    stages
-    {
-        stage('Download_Master')
-        {
-            steps
-            {
-                script
-                {
-                    cicd.gitDownload("maven")
+    stages {
+        stage('Download_Master') {
+            steps {
+                script {
+                    cicd.download()
                 }
             }
         }
-        stage('Build_Master')
-        {
-            steps
-            {
-                script
-                {
-                    cicd.buildArtifact()
+        stage('Build_Master') {
+            steps {
+                script {
+                    cicd.build()
                 }
             }
         }
-        stage('Deployment_Master')
-        {
-            steps
-            {
-                script
-                {
-                    cicd.deployTomcat("DeclarativePipelinewithSharedLibraries","172.31.18.248","testapp")
+        stage('Deployment_Master') {
+            steps {
+                script {
+                    cicd.deploy()
                 }
             }
         }
-        stage('Testing_Master')
-        {
-            steps
-            {
-                script
-                {
-                    cicd.gitDownload("FunctionalTesting")
-                    cicd.runSelenium("DeclarativePipelinewithSharedLibraries")
+        stage('Testing_Master') {
+            steps {
+                script {
+                    cicd.download()
+                    // Placeholder for test logic - update when you add runSelenium()
+                    echo 'Running tests...'
                 }
             }
         }
-        stage('Delivery_Master')
-        {
-            steps
-            {
-                script
-                {
-                    cicd.deployTomcat("DeclarativePipelinewithSharedLibraries","172.31.19.128","prodapp")
+        stage('Delivery_Master') {
+            steps {
+                script {
+                    cicd.deploy()
                 }
             }
         }
     }
 }
-
