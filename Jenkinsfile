@@ -1,5 +1,3 @@
-@Library('samplelibrary')_
-
 pipeline
 {
     agent any
